@@ -1,42 +1,44 @@
 # Solution
 
 primeFactor = function(n) {
-  factors = c()
-  i = 2
+  factors = c() # empty vector to store prime factors
+  i = 2 # starts checking divisibility from the smallest prime number, 2
   
   while(n > 1){
-    while (n %% i == 0) {
-      factors = c(factors, i)
-      n = n/i
+    while (n %% i == 0) { # checks if i is a factor of n
+      factors = c(factors, i) # i gets added to vector of prime factors
+      n = n/i # to find other factors of n other than the current i
     }
-    i = i + 1
-    if (i * i > n){
-      if (n > 1){
-        factors = c(factors, n)
+    i = i + 1 # increment to check next potential factor
+    if (i * i > n){ # checks if n is prime or has no smaller divisors left
+      if (n > 1){ # if n is greater than one after the last conditional it must be prime
+        factors = c(factors, n) # add the prime number n to the vector
       }
-      break
+      break # once all factors are found break loop
     }
   }
-  return (factors)
+  return (factors) # returns all factors of n
 }
 
-product.of.unique.prime = function(n){
-  factors = primeFactor(n)
-  return (length(factors) == length(unique(factors)))
+product.of.unique.prime = function(n){ 
+  factors = primeFactor(n) # gets the prime factors of n
+  return (length(factors) == length(unique(factors))) # returns TRUE if number of factors equals number of unique factors
 }
 
 replacement = function(n){
-  l = n - 1
+  # defines the number below and above the "wrong" number
+  l = n - 1 
   u = n + 1
   
-  while(TRUE){
-    if (product.of.unique.prime(l)){
-      return (l)
+  while(TRUE){ # runs infinitely until a replacement is found
+    if (product.of.unique.prime(l)){ # checks if the lower number is a product of unique primes
+      return (l) 
     }
     if (product.of.unique.prime(u)){
-      return (u)
+      return (u) # checks if the higher number is a product of unique primes
     }
-    l = l - 1
+    # expands the search decreasing l and increasing u
+    l = l - 1 
     u = u + 1
   }
 }

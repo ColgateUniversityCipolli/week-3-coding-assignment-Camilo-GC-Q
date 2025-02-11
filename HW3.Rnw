@@ -113,7 +113,7 @@ for (num in nums) {
 }
 @
 
-This R script analyzes a list of numbers (nums) to determine whether each number is a product of unique prime factors. The primeFactor function extracts all prime factors of a given number, while the product.of.unique.prime function checks whether all factors are distinct. If a number contains repeated prime factors, it is considered invalid. For these invalid numbers, the replacement functino searches for the nearest valid number checking decreasing (n-1) and increasing (n+1) values until it finds a valid number.  
+This R script analyzes a list of numbers (nums) to determine whether each number is a product of unique prime factors. The primeFactor function extracts all prime factors of a given number, while the product.of.unique.prime function checks whether all factors are distinct. If a number contains repeated prime factors, it is considered invalid. For these invalid numbers, the replacement function searches for the nearest valid number checking decreasing (n-1) and increasing (n+1) values until it finds a valid number.  
 
 \end{enumerate}
 

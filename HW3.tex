@@ -103,8 +103,70 @@ to this \texttt{.Rnw} file.\\
 \begin{knitrout}\scriptsize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcom{# Copy your solution code here.}
+\hlcom{# Solution}
+
+\hldef{primeFactor} \hlkwb{=} \hlkwa{function}\hldef{(}\hlkwc{n}\hldef{) \{}
+  \hldef{factors} \hlkwb{=} \hlkwd{c}\hldef{()} \hlcom{# empty vector to store prime factors}
+  \hldef{i} \hlkwb{=} \hlnum{2} \hlcom{# starts checking divisibility from the smallest prime number, 2}
+
+  \hlkwa{while}\hldef{(n} \hlopt{>} \hlnum{1}\hldef{)\{}
+    \hlkwa{while} \hldef{(n} \hlopt{%%} \hldef{i} \hlopt{==} \hlnum{0}\hldef{) \{} \hlcom{# checks if i is a factor of n}
+      \hldef{factors} \hlkwb{=} \hlkwd{c}\hldef{(factors, i)} \hlcom{# i gets added to vector of prime factors}
+      \hldef{n} \hlkwb{=} \hldef{n}\hlopt{/}\hldef{i} \hlcom{# to find other factors of n other than the current i}
+    \hldef{\}}
+    \hldef{i} \hlkwb{=} \hldef{i} \hlopt{+} \hlnum{1} \hlcom{# increment to check next potential factor}
+    \hlkwa{if} \hldef{(i} \hlopt{*} \hldef{i} \hlopt{>} \hldef{n)\{} \hlcom{# checks if n is prime or has no smaller divisors left}
+      \hlkwa{if} \hldef{(n} \hlopt{>} \hlnum{1}\hldef{)\{} \hlcom{# if n is greater than one after the last conditional it must be prime}
+        \hldef{factors} \hlkwb{=} \hlkwd{c}\hldef{(factors, n)} \hlcom{# add the prime number n to the vector}
+      \hldef{\}}
+      \hlkwa{break} \hlcom{# once all factors are found break loop}
+    \hldef{\}}
+  \hldef{\}}
+  \hlkwd{return} \hldef{(factors)} \hlcom{# returns all factors of n}
+\hldef{\}}
+
+\hldef{product.of.unique.prime} \hlkwb{=} \hlkwa{function}\hldef{(}\hlkwc{n}\hldef{)\{}
+  \hldef{factors} \hlkwb{=} \hlkwd{primeFactor}\hldef{(n)} \hlcom{# gets the prime factors of n}
+  \hlkwd{return} \hldef{(}\hlkwd{length}\hldef{(factors)} \hlopt{==} \hlkwd{length}\hldef{(}\hlkwd{unique}\hldef{(factors)))} \hlcom{# returns TRUE if number of factors equals number of unique factors}
+\hldef{\}}
+
+\hldef{replacement} \hlkwb{=} \hlkwa{function}\hldef{(}\hlkwc{n}\hldef{)\{}
+  \hlcom{# defines the number below and above the "wrong" number}
+  \hldef{l} \hlkwb{=} \hldef{n} \hlopt{-} \hlnum{1}
+  \hldef{u} \hlkwb{=} \hldef{n} \hlopt{+} \hlnum{1}
+
+  \hlkwa{while}\hldef{(}\hlnum{TRUE}\hldef{)\{} \hlcom{# runs infinitely until a replacement is found}
+    \hlkwa{if} \hldef{(}\hlkwd{product.of.unique.prime}\hldef{(l))\{} \hlcom{# checks if the lower number is a product of unique primes}
+      \hlkwd{return} \hldef{(l)}
+    \hldef{\}}
+    \hlkwa{if} \hldef{(}\hlkwd{product.of.unique.prime}\hldef{(u))\{}
+      \hlkwd{return} \hldef{(u)} \hlcom{# checks if the higher number is a product of unique primes}
+    \hldef{\}}
+    \hlcom{# expands the search decreasing l and increasing u}
+    \hldef{l} \hlkwb{=} \hldef{l} \hlopt{-} \hlnum{1}
+    \hldef{u} \hlkwb{=} \hldef{u} \hlopt{+} \hlnum{1}
+  \hldef{\}}
+\hldef{\}}
+
+\hldef{nums} \hlkwb{=} \hlkwd{c}\hldef{(}\hlnum{6}\hldef{,} \hlnum{10}\hldef{,} \hlnum{14}\hldef{,} \hlnum{15}\hldef{,} \hlnum{21}\hldef{,}
+         \hlnum{22}\hldef{,} \hlnum{26}\hldef{,} \hlnum{33}\hldef{,} \hlnum{34}\hldef{,} \hlnum{35}\hldef{,}
+         \hlnum{38}\hldef{,} \hlnum{39}\hldef{,} \hlnum{46}\hldef{,} \hlnum{51}\hldef{,} \hlnum{55}\hldef{,}
+         \hlnum{57}\hldef{,} \hlnum{58}\hldef{,} \hlnum{62}\hldef{,} \hlnum{65}\hldef{,} \hlnum{69}\hldef{,}
+         \hlnum{75}\hldef{,} \hlnum{77}\hldef{,} \hlnum{82}\hldef{,} \hlnum{85}\hldef{,} \hlnum{86}\hldef{,}
+         \hlnum{87}\hldef{,} \hlnum{91}\hldef{,} \hlnum{93}\hldef{,} \hlnum{94}\hldef{,} \hlnum{95}\hldef{)}
+
+\hlkwa{for} \hldef{(num} \hlkwa{in} \hldef{nums) \{}
+  \hlkwa{if} \hldef{(}\hlopt{!}\hlkwd{product.of.unique.prime}\hldef{(num))\{}
+    \hlkwd{print}\hldef{(num)}
+    \hldef{repl} \hlkwb{=} \hlkwd{replacement}\hldef{(num)}
+    \hlkwd{print}\hldef{(}\hlkwd{paste}\hldef{(}\hlsng{"Replace"}\hldef{, num,} \hlsng{"with"}\hldef{, repl))}
+  \hldef{\}}
+\hldef{\}}
 \end{alltt}
+\begin{verbatim}
+## [1] 75
+## [1] "Replace 75 with 74"
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 \end{enumerate}
